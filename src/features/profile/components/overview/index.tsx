@@ -1,0 +1,95 @@
+import { GlobeIcon, MapPinIcon, MarsIcon, VenusIcon } from "lucide-react";
+
+import { USER } from "@/features/profile/data/user";
+import { urlToName } from "@/utils/url";
+
+import { Panel, PanelContent } from "../panel";
+import { CurrentLocalTimeItem } from "./current-local-time-item";
+import { EmailItem } from "./email-item";
+import {
+  IntroItem,
+  IntroItemContent,
+  IntroItemIcon,
+  IntroItemLink,
+} from "./intro-item";
+import { JobItem } from "./job-item";
+import { PhoneItem } from "./phone-item";
+
+export function Overview() {
+  const hasSecondJob = Boolean(USER.jobs[1]);
+  const hasPhone = Boolean(USER.phoneNumber);
+  const hasSecondPhone = Boolean(USER.secondPhoneNumber);
+  const hasEmail = Boolean(USER.email);
+  const hasWebsite = Boolean(USER.website);
+
+  return (
+    <Panel>
+      <h2 className="sr-only">Overview</h2>
+
+      <PanelContent className="space-y-2.5">
+        <JobItem
+          title={USER.jobs[0].title}
+          company={USER.jobs[0].company}
+          website={USER.jobs[0].website}
+        />
+
+        <div className="grid gap-x-12 gap-y-2.5 sm:grid-cols-2">
+          {hasSecondJob && (
+            <JobItem
+              title={USER.jobs[1].title}
+              company={USER.jobs[1].company}
+              website={USER.jobs[1].website}
+            />
+          )}
+
+          <IntroItem>
+            <IntroItemIcon>
+              {USER.gender === "male" ? <MarsIcon /> : <VenusIcon />}
+            </IntroItemIcon>
+            <IntroItemContent aria-label={`Pronouns: ${USER.pronouns}`}>
+              {USER.pronouns}
+            </IntroItemContent>
+          </IntroItem>
+
+          <IntroItem>
+            <IntroItemIcon>
+              <MapPinIcon />
+            </IntroItemIcon>
+            <IntroItemContent>
+              <IntroItemLink
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(USER.address)}`}
+                aria-label={`Location: ${USER.address}`}
+              >
+                {USER.address}
+              </IntroItemLink>
+            </IntroItemContent>
+          </IntroItem>
+
+          <CurrentLocalTimeItem timeZone={USER.timeZone} />
+
+          {hasPhone && <PhoneItem phoneNumber={USER.phoneNumber} />}
+
+          {hasSecondPhone && <PhoneItem phoneNumber={USER.secondPhoneNumber} />}
+
+          {hasEmail && <EmailItem email={USER.email} />}
+
+          {hasWebsite && (
+            <IntroItem>
+              <IntroItemIcon>
+                <GlobeIcon />
+              </IntroItemIcon>
+              <IntroItemContent>
+                <IntroItemLink
+                  href={USER.website}
+                  aria-label={`Personal website: ${urlToName(USER.website)}`}
+                >
+                  {urlToName(USER.website)}
+                </IntroItemLink>
+              </IntroItemContent>
+            </IntroItem>
+          )}
+        </div>
+      </PanelContent>
+    </Panel>
+  );
+}
