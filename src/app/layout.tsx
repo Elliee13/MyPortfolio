@@ -19,8 +19,6 @@ function getWebSiteJsonLd(): WithContext<WebSite> {
   };
 }
 
-// Trigger commit
-
 // Thanks @shadcn-ui, @tailwindcss
 const darkModeScript = String.raw`
   try {
@@ -42,8 +40,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   title: {
-    template: `%s – ${SITE_INFO.name}`,
-    default: `${USER.displayName} – ${USER.jobTitle}`,
+    template: `%s - ${SITE_INFO.name}`,
+    default: `${USER.displayName} - ${USER.jobTitle}`,
   },
   description: SITE_INFO.description,
   keywords: SITE_INFO.keywords,
@@ -79,16 +77,9 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/favicon.ico",
-        sizes: "any",
-      },
-      {
-        url: "/images/brand/favicon.ico",
-        sizes: "any",
-      },
-      {
-        url: "/images/brand/favicon.svg",
-        type: "image/svg+xml",
+        url: "/favicon.png",
+        type: "image/png",
+        sizes: "32x32",
       },
       {
         url: "/images/brand/apple-touch-icon.png",
@@ -101,7 +92,7 @@ export const metadata: Metadata = {
       type: "image/png",
       sizes: "180x180",
     },
-    shortcut: "/favicon.ico",
+    shortcut: "/favicon.png",
   },
 };
 

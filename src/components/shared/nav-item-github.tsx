@@ -20,7 +20,7 @@ export async function NavItemGitHub() {
       </TooltipTrigger>
 
       <TooltipContent>
-        <p>Open GitHub profile</p>
+        <p>Open source repository</p>
       </TooltipContent>
     </Tooltip>
   );

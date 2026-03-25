@@ -9,9 +9,9 @@ export default function manifest(): MetadataRoute.Manifest {
     description: SITE_INFO.description,
     icons: [
       {
-        src: "/images/brand/favicon.svg",
-        type: "image/svg+xml",
-        sizes: "any",
+        src: "/favicon.png",
+        type: "image/png",
+        sizes: "32x32",
         purpose: "any",
       },
       {
@@ -39,28 +39,16 @@ export default function manifest(): MetadataRoute.Manifest {
     scope: "/",
     screenshots: [
       {
-        src: "/images/screenshots/screenshot-desktop-light.png",
-        type: "image/webp",
-        sizes: "440x956",
-        form_factor: "narrow",
-      },
-      {
         src: "/images/screenshots/screenshot-mobile-light.png",
         type: "image/webp",
         sizes: "440x956",
         form_factor: "narrow",
       },
       {
-        src: "https://github.com/user-attachments/assets/be67ffb8-2511-4f5c-912e-270266ef928a",
+        src: "/images/screenshots/screenshot-mobile-dark.png",
         type: "image/webp",
-        sizes: "1920x1080",
-        form_factor: "wide",
-      },
-      {
-        src: "https://github.com/user-attachments/assets/609c66b3-4f89-46d5-8de9-0f8bf18529cb",
-        type: "image/webp",
-        sizes: "1920x1080",
-        form_factor: "wide",
+        sizes: "440x956",
+        form_factor: "narrow",
       },
     ],
   };

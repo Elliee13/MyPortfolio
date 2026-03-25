@@ -1,8 +1,7 @@
 {
   "name": "my-portfolio",
   "version": "0.1.0",
-  "description": "A minimal, pixel-perfect developer portfolio, blog and products.",
-  "homepage": "http://localhost:1408",
+  "description": "Personal portfolio for backend-focused full-stack product work, selected projects, and technical experience.",
   "license": "MIT",
   "author": {
     "name": "Ellie",
