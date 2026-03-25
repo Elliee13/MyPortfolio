@@ -1,70 +1,105 @@
-# [abdulrehmanwaseem](https://abdulrehmanwaseem.me)
+# My Portfolio
 
-A minimal, pixel-perfect dev portfolio, blog and products to showcase my work as a Fullstack developer.
+Personal portfolio for **John Ellemeleck P. Austria**, focused on backend-heavy full-stack product work, internal tools, admin systems, and API-driven platforms.
 
-Check out the live site: [abdulrehmanwaseem](https://abdulrehmanwaseem.me)
+Live site:
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/be67ffb8-2511-4f5c-912e-270266ef928a">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/609c66b3-4f89-46d5-8de9-0f8bf18529cb">
-  <img src="https://github.com/user-attachments/assets/609c66b3-4f89-46d5-8de9-0f8bf18529cb" alt="Screenshot">
-</picture>
+- [dev-portfolio-blue-eight.vercel.app](https://dev-portfolio-blue-eight.vercel.app/)
 
 ## Overview
 
-### Stack
+This portfolio is built to present real proof of work rather than just a tool list. It highlights practical systems work across workflow-driven products, protected admin experiences, role-based platforms, and backend-focused implementation.
 
-- Next.js 15
+Featured proof projects:
+
+- **ConstructGo**: multi-role mobile commerce and fulfillment system with customer, store owner, driver, and admin workflows
+- **Clinic Management System**: private academic clinic records and operations platform with role-based access and protected workflows
+- **Artwork Inventory & Viewer Platform**: internal gallery and inventory system with spreadsheet ingestion, caching, and serverless-aware delivery
+- **Youth Service Philippines**: volunteer and operations platform with approvals, protected workspaces, and organization-level coordination
+
+## Stack
+
+- Next.js 16
+- React 19
+- TypeScript
 - Tailwind CSS v4
 - shadcn/ui
+- Radix UI
+- Motion
+- Vercel Analytics + Speed Insights
 
-### Featured
+## Features
 
-- Clean & modern design
-- Light/Dark themes
-- vCard integration
-- SEO optimized ([JSON-LD schema](https://json-ld.org), sitemap, robots)
-- AI-ready with [/llms.txt](https://llmstxt.org)
-- Spam-protected email
-- Installable as PWA
+- Portfolio-focused App Router setup
+- Screenshot-backed project proof
+- Light and dark theme support
+- vCard download route
+- SEO basics with metadata, sitemap, robots, and JSON-LD
+- PWA manifest and favicon support
+- Blog support with MDX routes still available in the codebase
 
-### Blog
+## Local Development
 
-- Supports MDX & Markdown
-- Raw `.mdx` endpoints for AI readability
-- Syntax highlighting for clear code presentation
-- Dynamic OG images for rich link previews
-- RSS feed for easy content distribution
+This project uses `pnpm`.
 
-### Registry
+```bash
+corepack enable
+corepack pnpm install
+corepack pnpm dev
+```
 
-Easily build and distribute reusable components, hooks, and pages using a custom registry powered by the [shadcn CLI](https://ui.shadcn.com/docs/cli).
+The dev server runs on:
 
-Each entry is well-documented and includes:
+```text
+http://localhost:1408
+```
 
-- Live preview & code snippets
-- Beautiful, readable code blocks
-- One-click command blocks (pnpm, npm, yarn, bun)
+Useful commands:
 
-## Development
+```bash
+corepack pnpm build
+corepack pnpm start
+corepack pnpm lint
+corepack pnpm check-types
+```
 
-Please refer to the [Development Guide](./DEVELOPMENT.md) for more details.
+## Deployment
+
+This repo is ready for deployment on **Vercel**.
+
+Recommended environment variables:
+
+```bash
+APP_URL=https://your-production-url.vercel.app
+```
+
+Optional:
+
+```bash
+GITHUB_API_TOKEN=
+```
+
+`GITHUB_API_TOKEN` is only needed if you want authenticated GitHub API requests for the repository star count.
+
+## Project Structure
+
+Key areas:
+
+- `src/app/` - routes, metadata, manifest, robots, sitemap, OG routes
+- `src/features/profile/` - profile data, sections, projects, experiences, screenshots
+- `src/components/` - shared UI and app components
+- `src/assets/images/` - local project screenshots and profile assets
+- `public/` - favicon, resume, public icons, and static assets
+- `docs/` - portfolio documentation and supporting notes
+
+## Notes
+
+- The **Clinic Management System** is intentionally kept private. Screenshots are shown in the portfolio, but no public source link is exposed.
+- Public project links currently included:
+  - ConstructGo GitHub + APK build
+  - Artwork live demo + GitHub
+  - Youth Service Philippines live demo
 
 ## License
 
 Licensed under the [MIT license](./LICENSE).
-
-You're free to use my code! Just make sure to <ins>remove all my personal information</ins> before publishing your website. It's awesome to see my code being useful to someone!
-
-## Acknowledgments
-
-- [React](https://react.dev)
-- [Next.js](https://nextjs.org)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Radix UI](https://www.radix-ui.com)
-- [Motion](https://motion.dev)
-- [shadcn/ui](https://ui.shadcn.com)
-- [Aceternity UI](https://ui.aceternity.com)
-- [Lucide](https://lucide.dev)
-- [Fumadocs](https://fumadocs.dev)
-- And many other open-source libraries used in `package.json`
