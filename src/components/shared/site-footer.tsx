@@ -1,67 +1,64 @@
-import { RssIcon } from "lucide-react";
+import { FileUserIcon, GithubIcon, LinkedinIcon, MailIcon } from "lucide-react";
 
-import { Icons } from "@/components/icons";
-import { SITE_INFO, SOURCE_CODE_GITHUB_URL } from "@/config/site";
+import { USER } from "@/features/profile/data/user";
+import { decodeEmail } from "@/utils/string";
+
+const email = decodeEmail(USER.email);
 
 export function SiteFooter() {
   return (
     <footer className="max-w-screen overflow-x-hidden px-2">
       <div className="screen-line-before mx-auto border-x border-edge pt-4 md:max-w-3xl">
-        <p className="mb-1 px-4 text-center font-mono text-sm text-balance text-muted-foreground">
-          Inspired by tailwindcss.com & ui.shadcn.com
-        </p>
+        <div className="screen-line-before screen-line-after border-y border-edge px-4 py-5 text-center">
+          <p className="font-mono text-sm text-balance text-muted-foreground">
+            A strong fit for backend-heavy full-stack work involving internal
+            tools, admin systems, and API-driven products from Davao,
+            Philippines.
+          </p>
 
-        <p className="mb-4 px-4 text-center font-mono text-sm text-balance text-muted-foreground">
-          Built by a human. The source code and profile are available on{" "}
-          <a
-            className="link"
-            href={SOURCE_CODE_GITHUB_URL}
-            target="_blank"
-            rel="noopener"
-          >
-            GitHub
-          </a>
-          .
-        </p>
-
-        <div className="screen-line-before screen-line-after flex w-full before:z-1 after:z-1">
-          <div className="mx-auto flex items-center justify-center gap-3 border-x border-edge bg-background px-4">
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-mono text-xs text-muted-foreground">
             <a
-              className="flex font-mono text-xs font-medium text-muted-foreground"
-              href={`${SITE_INFO.url}/llms.txt`}
+              className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
+              href="https://github.com/Elliee13"
               target="_blank"
               rel="noopener noreferrer"
             >
-              llms.txt
+              <GithubIcon className="size-3.5" />
+              GitHub
             </a>
 
-            <Separator />
-
             <a
-              className="flex items-center text-muted-foreground transition-colors hover:text-foreground"
-              href={`${SITE_INFO.url}/rss`}
+              className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
+              href="https://www.linkedin.com/in/john-ellemeleck-p-austria-6b2a85302/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <RssIcon className="size-4" />
-              <span className="sr-only">RSS</span>
+              <LinkedinIcon className="size-3.5" />
+              LinkedIn
             </a>
 
-            <Separator />
+            <a
+              className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
+              href={`mailto:${email}`}
+            >
+              <MailIcon className="size-3.5" />
+              Email
+            </a>
 
             <a
-              className="flex text-muted-foreground transition-colors hover:text-foreground"
-              href={
-                process.env.NEXT_PUBLIC_DMCA_URL ||
-                "https://www.dmca.com/ProtectionPro.aspx"
-              }
+              className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
+              href="/resume/Ellie_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Icons.dmca className="h-5 w-auto" />
-              <span className="sr-only">DMCA.com Protection Status</span>
+              <FileUserIcon className="size-3.5" />
+              View Resume
             </a>
           </div>
+
+          <p className="mt-4 font-mono text-xs text-muted-foreground">
+            (c) 2026 {USER.displayName}
+          </p>
         </div>
       </div>
       <div className="pb-[env(safe-area-inset-bottom,0px)]">
@@ -69,8 +66,4 @@ export function SiteFooter() {
       </div>
     </footer>
   );
-}
-
-function Separator() {
-  return <div className="flex h-11 w-px bg-edge" />;
 }

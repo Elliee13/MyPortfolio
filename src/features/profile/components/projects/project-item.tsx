@@ -1,4 +1,4 @@
-import { InfinityIcon, LinkIcon } from "lucide-react";
+import { ArrowUpRightIcon, InfinityIcon, LinkIcon } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
@@ -17,6 +17,7 @@ import { UTM_PARAMS } from "@/config/site";
 import { addQueryParams } from "@/utils/url";
 
 import type { Project } from "../../types/projects";
+import { ProjectScreenshots } from "./project-screenshots";
 
 export function ProjectItem({
   className,
@@ -27,6 +28,7 @@ export function ProjectItem({
 }) {
   const { start, end } = project.period;
   const isOngoing = !end;
+  const primaryLink = project.links?.[0]?.href ?? project.link;
 
   return (
     <CollapsibleWithContext defaultOpen={project.isExpanded} asChild>
@@ -52,9 +54,9 @@ export function ProjectItem({
             </div>
           )}
 
-          <div className="flex-1 border-l border-dashed border-edge">
-            <CollapsibleTrigger className="flex w-full items-center gap-4 p-4 pr-2 text-left select-none">
-              <div className="flex-1">
+          <div className="flex flex-1 items-center border-l border-dashed border-edge">
+            <CollapsibleTrigger className="flex min-w-0 flex-1 items-center gap-4 p-4 pr-2 text-left select-none">
+              <div className="min-w-0 flex-1">
                 <h3 className="mb-1 leading-snug font-medium text-balance">
                   {project.title}
                 </h3>
@@ -63,7 +65,7 @@ export function ProjectItem({
                   <dt className="sr-only">Period</dt>
                   <dd className="flex items-center gap-0.5">
                     <span>{start}</span>
-                    <span className="font-mono">—</span>
+                    <span className="font-mono">-</span>
                     {isOngoing ? (
                       <>
                         <InfinityIcon
@@ -78,26 +80,45 @@ export function ProjectItem({
                   </dd>
                 </dl>
               </div>
-
-              <SimpleTooltip content="Open Project Link">
-                <a
-                  className="relative flex size-6 shrink-0 items-center justify-center text-muted-foreground after:absolute after:-inset-2 hover:text-foreground"
-                  href={addQueryParams(project.link, UTM_PARAMS)}
-                  target="_blank"
-                  rel="noopener"
-                >
-                  <LinkIcon className="pointer-events-none size-4" />
-                  <span className="sr-only">Open Project Link</span>
-                </a>
-              </SimpleTooltip>
-
-              <div
-                className="shrink-0 text-muted-foreground [&_svg]:size-4"
-                aria-hidden
-              >
-                <CollapsibleChevronsIcon />
-              </div>
             </CollapsibleTrigger>
+
+            {project.links?.length ? (
+              <div className="hidden shrink-0 items-center gap-1 pr-2 sm:flex">
+                {project.links.map((link) => (
+                  <a
+                    key={link.href}
+                    href={addQueryParams(link.href, UTM_PARAMS)}
+                    target="_blank"
+                    rel="noopener"
+                    className="inline-flex items-center gap-1 rounded-md border border-edge px-2 py-1 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {link.label}
+                    <ArrowUpRightIcon className="size-3" />
+                  </a>
+                ))}
+              </div>
+            ) : primaryLink ? (
+              <div className="shrink-0 pr-2">
+                <SimpleTooltip content="Open Project Link">
+                  <a
+                    className="relative flex size-6 items-center justify-center text-muted-foreground after:absolute after:-inset-2 hover:text-foreground"
+                    href={addQueryParams(primaryLink, UTM_PARAMS)}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <LinkIcon className="pointer-events-none size-4" />
+                    <span className="sr-only">Open Project Link</span>
+                  </a>
+                </SimpleTooltip>
+              </div>
+            ) : null}
+
+            <div
+              className="shrink-0 pr-2 text-muted-foreground [&_svg]:size-4"
+              aria-hidden
+            >
+              <CollapsibleChevronsIcon />
+            </div>
           </div>
         </div>
 
@@ -109,6 +130,13 @@ export function ProjectItem({
                   <Markdown>{project.description}</Markdown>
                 </Prose>
               )}
+
+              {project.screenshots?.length ? (
+                <ProjectScreenshots
+                  screenshots={project.screenshots}
+                  viewerSize={project.screenshotViewerSize}
+                />
+              ) : null}
 
               {project.skills.length > 0 && (
                 <ul className="flex flex-wrap gap-1.5">

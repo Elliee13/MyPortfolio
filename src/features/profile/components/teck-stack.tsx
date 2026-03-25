@@ -11,7 +11,7 @@ export function TeckStack() {
   return (
     <Panel id="stack">
       <PanelHeader>
-        <PanelTitle>Stack</PanelTitle>
+        <PanelTitle>Core Tools for Product Engineering</PanelTitle>
       </PanelHeader>
 
       <PanelContent

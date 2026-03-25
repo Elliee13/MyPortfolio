@@ -196,10 +196,10 @@ export function CommandMenu({ posts }: { posts: Post[] }) {
       </Button>
 
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Type a command or search..." />
+        <CommandInput placeholder="Search sections, projects, or links..." />
 
         <CommandList className="min-h-80 supports-timeline-scroll:scroll-fade-y">
-          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandEmpty>No matching results.</CommandEmpty>
 
           <CommandLinkGroup
             heading="Menu"

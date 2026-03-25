@@ -1,3 +1,6 @@
+import Image from "next/image";
+
+import phFlag from "@/assets/images/ph-flag.png";
 import { SimpleTooltip } from "@/components/ui/tooltip";
 import { USER } from "@/features/profile/data/user";
 import { cn } from "@/lib/utils";
@@ -10,13 +13,24 @@ export function ProfileHeader() {
   return (
     <div className="screen-line-after flex border-x border-edge">
       <div className="shrink-0 border-r border-edge">
-        <div className="mx-[0.5px] my-[3px]">
+        <div className="relative mx-[0.5px] my-[3px]">
           <img
             className="size-32 rounded-full ring-1 ring-border ring-offset-2 ring-offset-background select-none sm:size-40"
             alt={`${USER.displayName}'s avatar`}
             src={USER.avatar}
             fetchPriority="high"
           />
+          <SimpleTooltip content="I'm from the Philippines">
+            <span className="absolute top-1 left-1 inline-flex select-none">
+              <Image
+                src={phFlag}
+                alt="Philippines flag"
+                width={45}
+                height={40}
+                className="h-8 w-auto object-contain sm:h-7"
+              />
+            </span>
+          </SimpleTooltip>
         </div>
       </div>
 
@@ -36,7 +50,7 @@ export function ProfileHeader() {
         </div>
 
         <div className="border-t border-edge">
-          <h1 className="flex items-center pl-4 text-3xl font-semibold">
+          <h1 className="flex items-center px-4 pt-3 text-3xl font-semibold">
             {USER.displayName}
             &nbsp;
             <SimpleTooltip content="Verified">
@@ -53,7 +67,7 @@ export function ProfileHeader() {
             )}
           </h1>
 
-          <div className="h-12 border-t border-edge py-1 pl-4 sm:h-auto">
+          <div className="h-12 border-t border-edge px-4 py-1 sm:h-auto">
             <FlipSentences sentences={USER.flipSentences} />
           </div>
         </div>

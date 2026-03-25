@@ -31,8 +31,13 @@ export async function GET() {
   }
 
   if (USER.jobs.length > 0) {
-    const company = USER.jobs[0];
-    card.addCompany(company.company).addJobtitle(company.title);
+    const job = USER.jobs[0];
+
+    if (job.company) {
+      card.addCompany(job.company);
+    }
+
+    card.addJobtitle(job.title);
   }
 
   return new NextResponse(card.toString(), {

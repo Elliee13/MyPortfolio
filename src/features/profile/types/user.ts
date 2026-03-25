@@ -26,7 +26,7 @@ export type User = {
   /** Work history entries */
   jobs: {
     title: string;
-    company: string;
+    company?: string;
     website: string;
   }[];
   /** Rich about section; supports Markdown */

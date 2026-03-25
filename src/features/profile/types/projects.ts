@@ -13,13 +13,26 @@ export type Project = {
     end?: string;
   };
   /** Public URL (site, repository, demo, or video). */
-  link: string;
+  link?: string;
+  /** Optional secondary links for project detail view. */
+  links?: {
+    label: string;
+    href: string;
+  }[];
   /** Tags/technologies for chips or filtering. */
   skills: string[];
   /** Optional rich description; Markdown and line breaks supported. */
   description?: string;
   /** Logo image URL (absolute or path under /public). */
   logo?: string;
+  /** Optional screenshots used as proof assets in the expanded card view. */
+  screenshots?: {
+    src: string;
+    alt: string;
+    caption?: string;
+  }[];
+  /** Optional viewer sizing for project screenshots. */
+  screenshotViewerSize?: "default" | "large";
   /** Whether the project card is expanded by default in the UI. */
   isExpanded?: boolean;
 };

@@ -1,105 +1,79 @@
 "use client";
 
-import { RepeatIcon } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
-import React, { useCallback, useEffect, useState } from "react";
+import { motion } from "motion/react";
+import { useEffect, useState } from "react";
 
-import { BrandMark } from "@/components/brand/brand-mark";
-import { Button } from "@/components/ui/button";
-import { SimpleTooltip } from "@/components/ui/tooltip";
-import { AppleHelloVietnameseEffect } from "@/registry/apple-hello-effect";
+const phrases = [
+  "Backend-first full-stack developer",
+  "I build internal tools, admin systems, and APIs",
+  "Strongest in workflow-driven product work",
+] as const;
 
-const layers = ["xin-chao", "brand-mark"] as const;
+const TYPE_DELAY_MS = 90;
+const DELETE_DELAY_MS = 55;
+const HOLD_DELAY_MS = 1200;
+const NEXT_PHRASE_DELAY_MS = 350;
 
 export function Hello() {
-  const [currentIndex, setCurrentIndex] = useState(1);
-
-  const canRestart = currentIndex === layers.length - 1;
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [visibleText, setVisibleText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    const realUser = isRealUser();
-    if (realUser) {
-      setTimeout(() => {
-        setCurrentIndex(0);
-      }, 500);
-    }
-  }, []);
+    const currentPhrase = phrases[phraseIndex];
 
-  const nextAnimation = useCallback(() => {
-    setTimeout(() => {
-      setCurrentIndex((prev) => (prev + 1) % layers.length);
-    }, 500);
-  }, []);
+    if (!isDeleting && visibleText === currentPhrase) {
+      const timeout = window.setTimeout(() => {
+        setIsDeleting(true);
+      }, HOLD_DELAY_MS);
+
+      return () => window.clearTimeout(timeout);
+    }
+
+    if (isDeleting && visibleText === "") {
+      const timeout = window.setTimeout(() => {
+        setIsDeleting(false);
+        setPhraseIndex((currentIndex) => (currentIndex + 1) % phrases.length);
+      }, NEXT_PHRASE_DELAY_MS);
+
+      return () => window.clearTimeout(timeout);
+    }
+
+    const timeout = window.setTimeout(
+      () => {
+        setVisibleText(
+          isDeleting
+            ? currentPhrase.slice(0, visibleText.length - 1)
+            : currentPhrase.slice(0, visibleText.length + 1)
+        );
+      },
+      isDeleting ? DELETE_DELAY_MS : TYPE_DELAY_MS
+    );
+
+    return () => window.clearTimeout(timeout);
+  }, [isDeleting, phraseIndex, visibleText]);
 
   return (
-    <>
-      <AnimatePresence mode="wait" initial={false}>
-        <div
-          key={`layer-${currentIndex}`}
-          className="flex items-center justify-center text-black dark:text-white"
-        >
-          {layers[currentIndex] === "xin-chao" && (
-            <AppleHelloVietnameseEffect
-              className="h-10 sm:h-16"
-              exit={{ opacity: 0, scale: 0.8 }}
-              onAnimationComplete={nextAnimation}
-            />
-          )}
-
-          {/* {layers[currentIndex] === "hello" && (
-            <AppleHelloEnglishEffect
-              className="h-10 sm:h-16"
-              speed={0.8}
-              exit={{ opacity: 0, scale: 0.8 }}
-              onAnimationComplete={nextAnimation}
-            />
-          )} */}
-
-          {layers[currentIndex] === "brand-mark" && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.5 }}
-            >
-              <BrandMark className="h-12 sm:h-16" />
-            </motion.div>
-          )}
-        </div>
-      </AnimatePresence>
-
-      <div className="absolute inset-0 flex items-end justify-end">
-        <SimpleTooltip content="Restart animation">
-          <Button
-            className="translate-px"
-            variant="outline"
-            size="icon"
-            disabled={!canRestart}
-            onClick={() => {
-              setCurrentIndex(0);
-            }}
+    <div className="flex size-full items-center justify-center px-6">
+      <motion.div
+        id="js-cover-mark"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45 }}
+        className="flex items-center justify-center text-center"
+      >
+        <p className="font-mono text-xl tracking-tight text-black sm:text-3xl dark:text-white">
+          {visibleText}
+          <motion.span
+            animate={{ opacity: [1, 0, 1] }}
+            transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY }}
+            className="ml-0.5 inline-block"
+            aria-hidden
           >
-            <RepeatIcon />
-            <span className="sr-only">Restart animation</span>
-          </Button>
-        </SimpleTooltip>
-      </div>
-    </>
+            |
+          </motion.span>
+        </p>
+      </motion.div>
+    </div>
   );
-}
-
-function isRealUser() {
-  if (navigator.webdriver) {
-    return false;
-  }
-
-  if (!navigator.languages || navigator.languages.length === 0) {
-    return false;
-  }
-
-  if (/HeadlessChrome|Puppeteer|Playwright/i.test(navigator.userAgent)) {
-    return false;
-  }
-
-  return true;
 }
