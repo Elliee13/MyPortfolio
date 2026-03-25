@@ -1,7 +1,6 @@
-import { GlobeIcon, MapPinIcon, MarsIcon, VenusIcon } from "lucide-react";
+import { MapPinIcon, MarsIcon, VenusIcon } from "lucide-react";
 
 import { USER } from "@/features/profile/data/user";
-import { urlToName } from "@/utils/url";
 
 import { Panel, PanelContent } from "../panel";
 import { CurrentLocalTimeItem } from "./current-local-time-item";
@@ -20,8 +19,6 @@ export function Overview() {
   const hasPhone = Boolean(USER.phoneNumber);
   const hasSecondPhone = Boolean(USER.secondPhoneNumber);
   const hasEmail = Boolean(USER.email);
-  const hasWebsite = Boolean(USER.website);
-
   return (
     <Panel>
       <h2 className="sr-only">Overview</h2>
@@ -72,22 +69,6 @@ export function Overview() {
           {hasSecondPhone && <PhoneItem phoneNumber={USER.secondPhoneNumber} />}
 
           {hasEmail && <EmailItem email={USER.email} />}
-
-          {hasWebsite && (
-            <IntroItem>
-              <IntroItemIcon>
-                <GlobeIcon />
-              </IntroItemIcon>
-              <IntroItemContent>
-                <IntroItemLink
-                  href={USER.website}
-                  aria-label={`Personal website: ${urlToName(USER.website)}`}
-                >
-                  {urlToName(USER.website)}
-                </IntroItemLink>
-              </IntroItemContent>
-            </IntroItem>
-          )}
         </div>
       </PanelContent>
     </Panel>
