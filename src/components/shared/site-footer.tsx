@@ -47,7 +47,7 @@ export function SiteFooter() {
 
             <a
               className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
-              href="/resume/Ellie_Resume.pdf"
+              href="/resume/John_Austria_Full_Stack_Developer_Resume1.pdf"
               target="_blank"
               rel="noopener noreferrer"
             >
